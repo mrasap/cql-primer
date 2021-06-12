@@ -1,0 +1,29 @@
+version: '3.7'
+
+services:
+  db:
+    image: conceptant/hapi-fhir
+    ports:
+      - "8080:8080"
+  cql-exec:
+  # https://github.com/DBCG/cql_execution_service
+    build: https://github.com/DBCG/cql_execution_service.git
+    ports:
+      - "8081:8080" # still need to verify this
+  cql-runner:
+  # https://github.com/DBCG/cql_runner
+    build:
+      context: cql-runner
+    ports:
+      - "8082:4200"
+    # TODO: automatically insert the appropriate config
+  synthea:
+  # https://github.com/synthetichealth/synthea
+  # https://github.com/smart-on-fhir/synthea
+    build:
+      context: synthea
+#    volumes:
+#      - ./synthea:/synthea
+  # TODO: create a graph
+#  bootstrap:
+  # TODO:
