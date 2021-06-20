@@ -1,0 +1,71 @@
+{
+  "name": "BMI",
+  "remarks": [
+    "Examplitis is a painful condition that affects only males. Most patients ",
+    "can be cured with Examplitol or an Examplotomy but some never recover."
+  ],
+  "states": {
+    "Initial": {
+      "type": "Initial",
+      "direct_transition": "Age_Delay"
+    },
+    "Terminal": {
+      "type": "Terminal"
+    },
+    "Obs_weight": {
+      "type": "Observation",
+      "category": "vital-signs",
+      "unit": "",
+      "codes": [
+        {
+          "system": "LOINC",
+          "code": "LG34372-9",
+          "display": "Body weight"
+        }
+      ],
+      "distribution": {
+        "kind": "UNIFORM",
+        "round": false,
+        "parameters": {
+          "high": 120,
+          "low": 50
+        }
+      },
+      "direct_transition": "Obs_height"
+    },
+    "Obs_height": {
+      "type": "Observation",
+      "category": "vital-signs",
+      "unit": "",
+      "codes": [
+        {
+          "system": "LOINC",
+          "code": "8302-2",
+          "display": "Body height"
+        }
+      ],
+      "distribution": {
+        "kind": "UNIFORM",
+        "round": false,
+        "parameters": {
+          "high": 210,
+          "low": 150
+        }
+      },
+      "direct_transition": "Terminal"
+    },
+    "Age_Delay": {
+      "type": "Delay",
+      "distribution": {
+        "kind": "UNIFORM",
+        "parameters": {
+          "high": 50,
+          "low": 18
+        }
+      },
+      "unit": "years",
+      "direct_transition": "Obs_weight"
+    }
+  },
+  "gmf_version": 2
+}

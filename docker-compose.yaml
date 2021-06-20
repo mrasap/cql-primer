@@ -20,10 +20,12 @@ services:
   synthea:
   # https://github.com/synthetichealth/synthea
   # https://github.com/smart-on-fhir/synthea
+  # https://synthetichealth.github.io/module-builder
     build:
       context: synthea
+    command: ./uploader -path ./output/fhir/ -fhir http://0.0.0.0:8080
 #    volumes:
-#      - ./synthea:/synthea
+#      - ./synthea/modules/:/synthea/src/main/resources/modules/
   # TODO: create a graph
 #  bootstrap:
   # TODO:
