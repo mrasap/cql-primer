@@ -17,15 +17,24 @@ services:
     ports:
       - "8082:4200"
     # TODO: automatically insert the appropriate config
+  syntheaupl:
+    build: https://github.com/hansenms/SyntheaGenerator.git
+    environment:
+      - NUMBER_OF_PATIENTS=2
+      - FHIR_SERVER_URL=http://db:8080/baseDstu3/
   synthea:
   # https://github.com/synthetichealth/synthea
   # https://github.com/smart-on-fhir/synthea
   # https://synthetichealth.github.io/module-builder
     build:
       context: synthea
-    command: ./uploader -path ./output/fhir/ -fhir http://0.0.0.0:8080
-#    volumes:
-#      - ./synthea/modules/:/synthea/src/main/resources/modules/
+#    command: ./uploader -path ./output/fhir/ -fhir http://0.0.0.0:8080
+    environment:
+      - FHIR_SERVER_URL=http://db:8080/baseDstu3/
+      - SYNTHEA_P=2
+    volumes:
+      - ./synthea/modules/:/synthea/src/main/resources/modules/
+      - ./synthea/output/:/synthea/output/
   # TODO: create a graph
 #  bootstrap:
   # TODO:
