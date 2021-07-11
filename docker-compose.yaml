@@ -6,14 +6,10 @@ services:
     ports:
       - "8080:8080"
   cql-exec:
-  # TODO: CORS, Jetty version 9.4.14.v20181114
-  # https://github.com/DBCG/cql_execution_service/blob/master/src/main/webapp/WEB-INF/web.xml
-  # Error when calling through cql-runner:
-  # Cross-Origin Request Blocked: The Same Origin Policy disallows reading the remote resource at http://cql-exec:8081/cql/evaluate. (Reason: CORS request did not succeed).
-  # Error when calling the service directly on http://localhost:8081/cql/evaluate:
-  # The method received in the request-line is known by the origin server but not supported by the target resource.
   # https://github.com/DBCG/cql_execution_service
-    build: https://github.com/DBCG/cql_execution_service.git
+  # build: https://github.com/DBCG/cql_execution_service.git
+    build:
+      context: cql-exec
     ports:
       - "8081:8080" # still need to verify this
   cql-runner:
