@@ -30,8 +30,11 @@ services:
     build:
       context: synthea
     environment:
-      - FHIR_SERVER_URL=http://db:8080/baseDstu3/
-      - SYNTHEA_P=2
+      SYNTHEA_P: 2
+      FHIR_SERVER_URL: http://db:8080/baseDstu3/
+      WAIT_HOSTS: http://db:8080/baseDstu3/
+      WAIT_TIMEOUT: 90
+      WAIT_SLEEP_INTERVAL: 5
     volumes:
       - ./synthea/modules/:/synthea/src/main/resources/modules/
       - ./synthea/output/:/synthea/output/
