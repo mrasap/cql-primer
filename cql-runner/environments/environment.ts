@@ -10,9 +10,9 @@
 
 export const environment = {
   production: false,
-  engineUri: 'http://localhost:8081/cql/evaluate',
+  engineUri: 'http://localhost:8080/cqf-ruler-r4/fhir/$cql',
   terminologyUri: 'https://cql-sandbox.alphora.com/cqf-ruler-r4/fhir',
-  dataSourceUri: 'http://db:8080/baseDstu3',
+  dataSourceUri: 'http://localhost:8080/cqf-ruler-r4/fhir/',
   librarySourceUri: 'https://cql-sandbox.alphora.com/cqf-ruler-r4/fhir',
   patientId: '1'
 };

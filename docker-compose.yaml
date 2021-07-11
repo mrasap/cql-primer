@@ -1,39 +1,52 @@
 version: '3.7'
 
 services:
-  db:
-    image: conceptant/hapi-fhir
+# HAPI FHIR is included in the cqf-ruler, but the refs are still nice
+#  db:
+#    # HAPI FHIR documentation:
+#    # Ref: https://hapifhir.io/hapi-fhir/
+#    # Dockerhub README
+#    # Ref: https://hub.docker.com/r/hapiproject/hapi
+#    # The source code for the deployment model
+#    # Ref: https://github.com/hapifhir/hapi-fhir-jpaserver-starter
+#    # The source code of the server itself
+#    # Ref: https://github.com/hapifhir/hapi-fhir
+#    image: hapiproject/hapi:latest
+#    ports:
+#      - "8080:8080"
+  cqf-ruler:
+    # CQF ruler documentation:
+    # Ref: https://github.com/DBCG/cqf-ruler/wiki
+    # The source code
+    # Ref: https://github.com/DBCG/cqf-ruler
+    # Dockerhub README
+    # Ref: https://hub.docker.com/r/contentgroup/cqf-ruler
+    image: contentgroup/cqf-ruler:latest
     ports:
       - "8080:8080"
-  cql-exec:
-  # https://github.com/DBCG/cql_execution_service
-  # build: https://github.com/DBCG/cql_execution_service.git
-    build:
-      context: cql-exec
-    ports:
-      - "8081:8080" # still need to verify this
   cql-runner:
-  # https://github.com/DBCG/cql_runner
+    # The source code
+    # Ref: https://github.com/DBCG/cql_runner
     build:
       context: cql-runner
     ports:
-      - "8082:4200"
+      - "8081:4200"
     volumes:
       - ./cql-runner/environments:/cql_runner/src/environments
   synthea:
-  # https://github.com/synthetichealth/synthea
-  # https://synthetichealth.github.io/module-builder
+  # The source code
+  # Ref: https://github.com/synthetichealth/synthea
+  # A useful tool to create your own modules
+  # Ref: https://synthetichealth.github.io/module-builder
     build:
       context: synthea
     environment:
-      SYNTHEA_P: 2
-      FHIR_SERVER_URL: http://db:8080/baseDstu3/
-      WAIT_HOSTS: http://db:8080/baseDstu3/
-      WAIT_TIMEOUT: 90
+      SYNTHEA_P: 5
+      FHIR_SERVER_URL: http://cqf-ruler:8080/cqf-ruler-r4/fhir/
+      WAIT_HOSTS: cqf-ruler:8080
+      WAIT_TIMEOUT: 210
       WAIT_SLEEP_INTERVAL: 5
     volumes:
       - ./synthea/modules/:/synthea/src/main/resources/modules/
-      - ./synthea/output/:/synthea/output/
-  # TODO: create a graph
-#  bootstrap:
-  # TODO:
+# uncomment this line to browse the raw FHIR bundles that are created by Synthea
+#      - ./synthea/output/:/synthea/output/

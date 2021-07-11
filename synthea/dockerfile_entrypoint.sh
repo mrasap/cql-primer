@@ -1,6 +1,6 @@
 #!/bin/bash
 
-output_dir=/synthea/output/fhir_stu3
+output_dir=/synthea/output/fhir
 
 # curl the FHIR bundle to the FHIR server
 # $1: the path to the bundle to upload
