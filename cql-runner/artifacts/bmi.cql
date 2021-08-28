@@ -16,7 +16,7 @@ define "Weights":
 
 define "latestWeight":
   First("Weights")
-        
+
 define "latestWeightValue":
   ("latestWeight".value as Quantity).value
 
@@ -31,9 +31,3 @@ define "latestHeightValue":
 
 define "BMI":
   "latestWeightValue" / ( "latestHeightValue" ^ 2 )
-
-define "BMIClassification":
-  if "BMI" >= 40 then 'Morbidly obese'
-  else if "BMI" >= 25 then 'Obese'
-  else if "BMI" >= 18.5 then 'Normal'
-  else 'Underweight'
