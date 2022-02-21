@@ -31,6 +31,8 @@ services:
       context: cql-runner
     ports:
       - "8081:4200"
+    environment:
+      NODE_OPTIONS: --openssl-legacy-provider
     volumes:
       - ./cql-runner/environments:/cql_runner/src/environments
   synthea:
@@ -42,11 +44,11 @@ services:
       context: synthea
     environment:
       SYNTHEA_P: 5
-      FHIR_SERVER_URL: http://cqf-ruler:8080/cqf-ruler-r4/fhir/
+      FHIR_SERVER_URL: http://cqf-ruler:8080/fhir/
       WAIT_HOSTS: cqf-ruler:8080
       WAIT_TIMEOUT: 210
       WAIT_SLEEP_INTERVAL: 5
     volumes:
-      - ./synthea/modules/:/synthea/src/main/resources/modules/
+      - ./synthea/modules/BMI.json:/synthea/src/main/resources/modules/BMI.json
 # uncomment this line to browse the raw FHIR bundles that are created by Synthea
 #      - ./synthea/output/:/synthea/output/
