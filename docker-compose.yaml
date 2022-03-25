@@ -20,8 +20,8 @@ services:
     # The source code
     # Ref: https://github.com/DBCG/cqf-ruler
     # Dockerhub README
-    # Ref: https://hub.docker.com/r/contentgroup/cqf-ruler
-    image: contentgroup/cqf-ruler:latest
+    # Ref: https://hub.docker.com/r/alphora/cqf-ruler
+    image: alphora/cqf-ruler:latest
     ports:
       - "8080:8080"
   cql-runner:
